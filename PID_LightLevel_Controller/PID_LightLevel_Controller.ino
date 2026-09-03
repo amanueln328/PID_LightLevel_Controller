@@ -3,6 +3,7 @@
 // Define Hardware Pins
 const int sensorPin = 26;
 const int ledPin = 15;
+const int potPin = 28;
 
 // Define PID Variables
 double Setpoint, Input, Output;
@@ -22,8 +23,6 @@ void setup() {
   // Set ADC to 10-bit (0-1023)
   analogReadResolution(10); 
 
-  Setpoint = 500; 
-
   // Initialize PID
   myPID.SetMode(AUTOMATIC);
   myPID.SetSampleTime(20);
@@ -33,6 +32,10 @@ void setup() {
 void loop() {
   // Read the sensor
   Input = analogRead(sensorPin);
+
+  // Read potentiometer value
+  int potVal = analogRead(potPin);
+  Setpoint = potVal;
 
   // Compute PID Error and Output
   myPID.Compute();
