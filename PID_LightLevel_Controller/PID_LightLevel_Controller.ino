@@ -7,10 +7,9 @@ const int ledPin = 15;
 // Define PID Variables
 double Setpoint, Input, Output;
 
-// Define Initial Tuning Parameters (Kp, Ki, Kd)
-// These will require tuning to achieve a critically damped response!
-double Kp = 1.0;
-double Ki = 0.0;
+// Define PID gains (Kp, Ki, Kd)
+double Kp = 0.25;
+double Ki = 1.0;
 double Kd = 0.0;
 
 // Initialize the PID controller
@@ -23,14 +22,12 @@ void setup() {
   // Set ADC to 10-bit (0-1023)
   analogReadResolution(10); 
 
-  // Set the target light level. 
-  // 500 is roughly half-brightness. Adjust this based on your room's ambient light.
   Setpoint = 500; 
 
   // Initialize PID
   myPID.SetMode(AUTOMATIC);
-  myPID.SetSampleTime(20); // 20ms sample rate
-  myPID.SetOutputLimits(0, 255); // Clamp output to standard 8-bit PWM limits
+  myPID.SetSampleTime(20);
+  myPID.SetOutputLimits(0, 255);
 }
 
 void loop() {
